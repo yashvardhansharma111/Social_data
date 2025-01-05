@@ -1,17 +1,25 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "description": "Backend for the social application.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "npm run dev"
+    "start": "node index.js",
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "social"
+    "social",
+    "backend",
+    "express",
+    "astra-db"
   ],
-  "author": "yashvardhan",
+  "author": "Yashvardhan",
   "license": "ISC",
-  "description": "",
   "dependencies": {
+    "@datastax/astra-db-ts": "^1.5.0",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2"
   }
 }
