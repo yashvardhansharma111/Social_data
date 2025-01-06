@@ -1,15 +1,10 @@
-import { config } from "dotenv";
-import db from "./db/index.js";
+import dotenv from "dotenv";
+import app from "./app.js";
 
-config({
-  path: "./.env",
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
-(async () => {
-  try {
-    const colls = await db.listCollections();
-    console.log("Connected to AstraDB successfully! Collections:", colls);
-  } catch (error) {
-    console.error("Error connecting to AstraDB. Details:", error.message);
-  }
-})();

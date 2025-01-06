@@ -1,7 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
+  esbuild: {
+    loader: 'tsx', // or 'ts'
+    include: /\.tsx?$/, // Ensure TypeScript files are correctly included
+    exclude: [],
+  },
   plugins: [react()],
-})
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'], 
+  },
+  server: {
+    hmr: {
+      overlay: false, 
+    },
+  },
+});
