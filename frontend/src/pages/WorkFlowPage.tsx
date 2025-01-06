@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { motion } from 'framer-motion';
 import InputForm from '../components/InputForm';
 import OutputDisplay from '../components/OutputDisplay';
@@ -6,17 +6,17 @@ import Loader from '../components/Loader';
 import api from '../utils/api';
 
 function WorkflowPage() {
-  const [output, setOutput] = useState(null);
+  const [output, setOutput] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (formData) => {
+  const handleSubmit = async (formData : any) => {
     setLoading(true);
     try {
       const response = await api.post('/api/langflow/run', formData);
       setOutput(response.data);
-    } catch (error) {
+    } catch (error : any) {
       console.error('Error:', error);
-      setOutput({ error: 'An error occurred while processing your request.' });
+      setOutput('An error occurred while processing your request.');
     } finally {
       setLoading(false);
     }
