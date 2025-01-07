@@ -1,45 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { AlertTriangle, ArrowLeft } from 'lucide-react';
 
-function ErrorPage() {
+const ErrorPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="sm:mx-auto sm:w-full sm:max-w-md"
+    <div className="flex items-center justify-center min-h-screen bg-[#0A0A0F]">
+      <motion.div
+        className="text-center"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <AlertTriangle className="w-24 h-24 mx-auto mb-4 text-red-500" />
+        <h1 className="text-6xl font-bold mb-4 text-blue-400">404</h1>
+        <p className="text-2xl mb-8 text-blue-300">Oops! Page not found</p>
+        <Link to="/">
+          <motion.button
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg text-lg flex items-center"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              404 - Page Not Found
-            </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Oops! The page you're looking for doesn't exist.
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-8"
-          >
-            <div className="text-center">
-              <Link
-                to="/"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Go Back to Homepage
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </div>
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Go back to home
+          </motion.button>
+        </Link>
+      </motion.div>
     </div>
   );
-}
+};
 
 export default ErrorPage;
 

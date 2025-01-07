@@ -3,51 +3,60 @@ import { motion } from 'framer-motion';
 import InputForm from '../components/InputForm';
 import OutputDisplay from '../components/OutputDisplay';
 import Loader from '../components/Loader';
-import api from '../utils/api';
+import { runWorkflow } from '../utils/api';
+import { AlertCircle } from 'lucide-react';
 
-function WorkflowPage() {
-  const [output, setOutput] = useState(null);
+interface WorkflowResult {
+  output: string;
+}
+
+const WorkflowPage: React.FC = () => {
+  const [result, setResult] = useState<WorkflowResult | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (formData) => {
+  const handleSubmit = async (formData: any) => {
     setLoading(true);
+    setError(null);
     try {
-      const response = await api.post('/api/langflow/run', formData);
-      setOutput(response.data);
-    } catch (error) {
-      console.error('Error:', error);
-      setOutput({ error: 'An error occurred while processing your request.' });
+      const data = await runWorkflow(formData);
+      setResult(data);
+    } catch (err) {
+      setError('An error occurred while processing your request.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
+    <div className="container mx-auto px-4 py-8">
+      <motion.h1
+        className="text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600"
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-white shadow overflow-hidden sm:rounded-lg"
       >
-        <div className="px-4 py-5 sm:px-6">
-          <h1 className="text-lg leading-6 font-medium text-gray-900">AI Workflow</h1>
-          <p className="mt-1 max-w-2xl text-sm text-gray-500">Run your AI workflow and see the results.</p>
-        </div>
-        <div className="border-t border-gray-200">
-          <div className="px-4 py-5 sm:p-6">
-            <InputForm onSubmit={handleSubmit} />
-            {loading ? (
-              <Loader />
-            ) : (
-              output && <OutputDisplay output={output} />
-            )}
+        AI Workflow
+      </motion.h1>
+      <InputForm onSubmit={handleSubmit} />
+      {loading && <Loader />}
+      {error && (
+        <motion.div
+          className="bg-red-900/20 border border-red-500 text-red-100 px-4 py-3 rounded-lg relative mt-4"
+          role="alert"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <div className="flex items-center">
+            <AlertCircle className="w-5 h-5 mr-2" />
+            <span className="block sm:inline">{error}</span>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
+      {result && <OutputDisplay result={result} />}
     </div>
   );
-}
+};
 
 export default WorkflowPage;
 

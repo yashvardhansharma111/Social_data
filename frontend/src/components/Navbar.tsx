@@ -1,50 +1,62 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Home, Activity, Info, Github } from 'lucide-react';
 
-function Navbar() {
+const Navbar: React.FC = () => {
   const location = useLocation();
 
-  const links = [
-    { to: '/', label: 'Home' },
-    { to: '/workflow', label: 'Workflow' },
-    { to: '/about', label: 'About' },
+  const isActive = (path: string) => location.pathname === path;
+
+  const navItems = [
+    { path: '/', icon: Home, label: 'Home' },
+    { path: '/workflow', icon: Activity, label: 'Workflow' },
+    { path: '/about', icon: Info, label: 'About' },
   ];
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
-            <div className="flex-shrink-0 flex items-center">
-              <Link to="/" className="text-xl font-bold text-indigo-600">LangFlow</Link>
-            </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              {links.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                    location.pathname === link.to
-                      ? 'border-indigo-500 text-gray-900'
-                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                  }`}
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {link.label}
+    <nav className="bg-[#111827] border-b border-blue-900/30">
+      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+        <Link to="/" className="text-2xl font-bold text-blue-400 flex items-center gap-2">
+          <Activity className="w-6 h-6" />
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
+            Social Analytics
+          </span>
+        </Link>
+        <div className="flex items-center gap-4">
+          <ul className="flex space-x-2">
+            {navItems.map(({ path, icon: Icon, label }) => (
+              <li key={path}>
+                <Link to={path}>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <button
+                      className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
+                        isActive(path)
+                          ? 'bg-blue-600 text-white'
+                          : 'text-blue-300 hover:bg-blue-800 hover:text-white'
+                      }`}
+                    >
+                      <Icon className="w-4 h-4 mr-2" />
+                      {label}
+                    </button>
                   </motion.div>
                 </Link>
-              ))}
-            </div>
-          </div>
+              </li>
+            ))}
+          </ul>
+          <a
+            href="https://github.com/yourusername/social-media-analytics"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-300 hover:text-white transition-colors"
+          >
+            <Github className="w-6 h-6" />
+          </a>
         </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
 

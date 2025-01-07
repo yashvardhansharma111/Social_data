@@ -5,7 +5,7 @@ import WorkflowPage from '../pages/WorkFlowPage';
 import AboutPage from '../pages/AboutPage';
 import ErrorPage from '../pages/ErrorPage';
 
-function AppRoutes() {
+const AppRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -14,7 +14,7 @@ function AppRoutes() {
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
-}
+};
 
 export default AppRoutes;
 

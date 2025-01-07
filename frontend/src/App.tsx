@@ -4,10 +4,10 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AppRoutes from './routes/AppRoutes';
 
-function App() {
+const App: React.FC = () => {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen bg-[#0A0A0F] text-blue-100">
         <Navbar />
         <main className="flex-grow">
           <AppRoutes />
@@ -16,7 +16,7 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 export default App;
 
