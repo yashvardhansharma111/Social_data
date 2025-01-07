@@ -10,7 +10,7 @@ const InputForm: React.FC<InputFormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     inputValue: '',
     inputType: 'text',
-    outputType: 'summary',
+    outputType: 'chat', // Default to a valid value
     streaming: false,
   });
 
@@ -76,9 +76,10 @@ const InputForm: React.FC<InputFormProps> = ({ onSubmit }) => {
             value={formData.outputType}
             onChange={handleChange}
           >
-            <option value="summary">Summary</option>
-            <option value="analysis">Analysis</option>
-            <option value="translation">Translation</option>
+            <option value="chat">Chat</option>
+            <option value="text">Text</option>
+            <option value="any">Any</option>
+            <option value="debug">Debug</option>
           </select>
         </div>
         <div className="flex items-center">
@@ -111,4 +112,3 @@ const InputForm: React.FC<InputFormProps> = ({ onSubmit }) => {
 };
 
 export default InputForm;
-

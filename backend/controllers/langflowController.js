@@ -7,10 +7,17 @@ const langflowClient = new LangflowClient(
 
 export const runFlow = async (req, res) => {
   try {
-   
-    
-    const { inputValue, inputType = "chat", outputType = "chat", stream = false } = req.body;
+    const { inputValue, inputType = "text", outputType = "chat", stream = false } = req.body;
 
+    // Validate outputType
+    const validOutputTypes = ["chat", "text", "any", "debug"];
+    if (!validOutputTypes.includes(outputType)) {
+      return res.status(422).json({
+        message: `Invalid outputType. Must be one of: ${validOutputTypes.join(", ")}`,
+      });
+    }
+
+    // Make request to Langflow API
     const response = await langflowClient.post(
       `/lf/${process.env.LANGFLOW_ID}/api/v1/run/${process.env.FLOW_ID}`,
       {
