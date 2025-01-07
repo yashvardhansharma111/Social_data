@@ -8,37 +8,37 @@ const AboutPage: React.FC = () => {
       name: 'Yashvardhan Sharma',
       role: 'Full Stack Developer',
       bio: 'Lead architect focusing on Langflow integration and system design. Passionate about creating scalable AI solutions.',
-      github: 'https://github.com/yashvardhan',
-      linkedin: '#',
+      github: 'github.com/yashvardhansharma111',
+      linkedin: 'https://www.linkedin.com/in/yashvardhan-sharma-671b02270/',
       email: 'yash@example.com',
-      image: '/placeholder.svg?height=400&width=400'
+      image: 'yash.jpg'
     },
     {
       name: 'Diya Verma',
       role: 'AI Engineer',
       bio: 'AI specialist with expertise in GPT integration and machine learning. Focused on developing intelligent analytics solutions.',
       github: 'https://github.com/diyaverma',
-      linkedin: '#',
+      linkedin: 'https://www.linkedin.com/in/diya-verma-323665259/',
       email: 'diya@example.com',
-      image: '/placeholder.svg?height=400&width=400'
+      image: 'diya.jpg'
     },
     {
       name: 'Mayank Sahu',
       role: 'Data Engineer',
       bio: 'Data engineering expert specializing in DataStax implementation and analytics pipeline development.',
-      github: 'https://github.com/mayanksahu',
-      linkedin: '#',
+      github: 'https://github.com/mayanksahu17',
+      linkedin: 'https://www.linkedin.com/in/mayank-sahu-fullstack-developer/',
       email: 'mayank@example.com',
-      image: '/placeholder.svg?height=400&width=400'
+      image: 'mayank.enc'
     },
     {
       name: 'Shivi Tiwari',
       role: 'Frontend Developer',
       bio: 'Creative frontend developer with a passion for building beautiful and intuitive user interfaces.',
-      github: 'https://github.com/shivitiwari',
-      linkedin: '#',
-      email: 'shivi@example.com',
-      image: '/placeholder.svg?height=400&width=400'
+      github: 'https://github.com/shivi028',
+      linkedin: 'https://www.linkedin.com/in/shivi-tiwari-7a669b289/',
+      email: 'tiwarishivi028@gmail.com',
+      image: 'shivi.jpg'
     }
   ];
 
