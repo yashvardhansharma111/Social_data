@@ -4,11 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
+  "dev": "vite",                               
+  "build": "tsc -b && vite build",              
+  "lint": "eslint .",                           
+  "preview": "vite preview",                  
+  "start": "vite preview --host 0.0.0.0"       
+},
+
   "dependencies": {
     "@tailwindcss/forms": "^0.5.9",
     "axios": "^1.7.9",
