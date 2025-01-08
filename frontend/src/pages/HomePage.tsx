@@ -69,7 +69,7 @@ const HomePage: React.FC = () => {
     {
       name: "Diya Verma",
       role: "AI Engineer",
-      specialty: "GPT Integration & ML",
+      specialty: "Frontend Developer",
       github: "https://github.com/diyaverma",
       image: "diya.jpg",
     },
