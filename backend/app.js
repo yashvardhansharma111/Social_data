@@ -4,7 +4,6 @@ import dbConnect from "./db/index.js";
 import cors from 'cors';
 const app = express();
 
-
 app.use(cors({
   origin: "*",
   credentials: true 

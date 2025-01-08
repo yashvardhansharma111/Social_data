@@ -60,7 +60,7 @@ export const runFlow = async (req, res) => {
         console.error('Unable to extract output from response:', response);
         return res.status(500).json({ message: "Could not extract output from response" });
       }
-      console.log(JSON.parse(output).results.message.text);
+      //console.log(JSON.parse(output).results.message.text);
 
       
       res.status(200).json({ message: JSON.parse(output).results.message.text });
