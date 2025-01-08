@@ -28,30 +28,42 @@ export const runFlow = async (req, res) => {
       }
     );
 
-    // Debug response structure
-    console.log("Full response:", JSON.stringify(response, null, 2));
+    // Debug log to see full response structure
+    // console.log('Full Langflow Response:', JSON.stringify(response, null, 2));
 
-    // Extract outputs
-    const outputs = response.outputs?.[0]?.outputs;
-    console.log("Outputs array:", JSON.stringify(outputs, null, 2));
-
-    // Extract the message text (if available)
-    const outputText = outputs?.[0]?.outputs?.message?.text;
-    console.log("Extracted text:", outputText);
-
-    if (stream && outputs?.[0]?.artifacts?.stream_url) {
-      const streamUrl = outputs[0].artifacts.stream_url;
-
+    if (stream && response.outputs?.[0]?.outputs?.[0]?.artifacts?.stream_url) {
+      const streamUrl = response.outputs[0].outputs[0].artifacts.stream_url;
+      
       langflowClient.handleStream(
         streamUrl,
         (data) => res.write(`data: ${JSON.stringify(data)}\n\n`),
         () => res.end(),
         (error) => res.status(500).json({ error: "Stream error" })
       );
-    } else if (outputText) {
-      res.status(200).json({ message: outputText });
     } else {
-      res.status(500).json({ message: "No output text found in response" });
+      // Extract output from the response with proper error handling
+      let output = null;
+      
+      if (response.outputs && response.outputs[0] && response.outputs[0].outputs) {
+        const firstOutput = response.outputs[0].outputs[0];
+        
+        // Try different possible output locations
+        output = firstOutput?.value || // Check for direct value
+                firstOutput?.output || // Check for output field
+                firstOutput?.message?.content || // Check for message content
+                firstOutput?.message?.text || // Check for message text
+                firstOutput?.text || // Check for direct text
+                JSON.stringify(firstOutput); // Fallback to stringified output
+      }
+
+      if (output === null) {
+        console.error('Unable to extract output from response:', response);
+        return res.status(500).json({ message: "Could not extract output from response" });
+      }
+      console.log(JSON.parse(output).results.message.text);
+
+      
+      res.status(200).json({ message: JSON.parse(output).results.message.text });
     }
   } catch (error) {
     console.error("Error in runFlow controller:", error.message);

@@ -13,6 +13,7 @@ const api = axios.create({
 export const runWorkflow = async (formData: WorkflowFormData): Promise<WorkflowResult> => {
   try {
     const response = await api.post<WorkflowResult>('/run', formData);
+    console.log( "log from api : ",response);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError;
