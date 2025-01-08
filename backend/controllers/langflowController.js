@@ -29,7 +29,7 @@ export const runFlow = async (req, res) => {
     );
 
     // Debug log to see full response structure
-    console.log('Full Langflow Response:', JSON.stringify(response, null, 2));
+    // console.log('Full Langflow Response:', JSON.stringify(response, null, 2));
 
     if (stream && response.outputs?.[0]?.outputs?.[0]?.artifacts?.stream_url) {
       const streamUrl = response.outputs[0].outputs[0].artifacts.stream_url;
@@ -60,8 +60,10 @@ export const runFlow = async (req, res) => {
         console.error('Unable to extract output from response:', response);
         return res.status(500).json({ message: "Could not extract output from response" });
       }
+      console.log(JSON.parse(output).results.message.text);
 
-      res.status(200).json({ message: output });
+      
+      res.status(200).json({ message: JSON.parse(output).results.message.text });
     }
   } catch (error) {
     console.error("Error in runFlow controller:", error.message);

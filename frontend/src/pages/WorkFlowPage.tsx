@@ -19,6 +19,7 @@ const WorkflowPage: React.FC = () => {
     try {
       const data = await runWorkflow(formData);
       setResult(data);
+      
     } catch (err) {
       const error = err as Error;
       setError(error.message || 'An error occurred while processing your request.');
