@@ -31,8 +31,8 @@ def generate_mock_data(num_posts=100):
 
 def connect_to_astra_db():
     # Replace with your token
-    ASTRA_DB_TOKEN = "AstraCS:ZZtSSvmBnNZAfpyrhlinJepe:9efca32d02444e2d7d1c0045ca72b121d571c1362b0480f4f9197af0394f7daa"
-    ASTRA_DB_API_ENDPOINT = "https://95973b06-bb15-494a-ae60-550719b1c7c1-us-east-2.apps.astra.datastax.com"
+    ASTRA_DB_TOKEN = "{Your Token}"
+    ASTRA_DB_API_ENDPOINT = "Your endpoint"
 
     # Initialize the client
     client = DataAPIClient(token=ASTRA_DB_TOKEN)
