@@ -4,7 +4,7 @@ import { WorkflowFormData, WorkflowResult } from '../types';
 const Backend_Url = import.meta.env.Backend_API
 
 const api = axios.create({
-  baseURL: Backend_Url ||'http://localhost:3000/api/langflow',
+  baseURL: Backend_Url ||'https://original-bebe-yashvardhan-09a9299f.koyeb.app/',
   timeout: 40000,
   headers: {
     'Content-Type': 'application/json',
