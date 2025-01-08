@@ -1,10 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { WorkflowResult } from '../types';
 
 interface OutputDisplayProps {
-  result: {
-    output: string;
-  };
+  result: WorkflowResult;
 }
 
 const OutputDisplay: React.FC<OutputDisplayProps> = ({ result }) => {
@@ -17,11 +16,10 @@ const OutputDisplay: React.FC<OutputDisplayProps> = ({ result }) => {
     >
       <h2 className="text-2xl font-bold mb-4 text-blue-400">Result</h2>
       <pre className="bg-[#111827] p-4 rounded-md overflow-x-auto whitespace-pre-wrap text-sm text-blue-100 border border-blue-900/50">
-        {result.output}
+        {result.message || result.output}
       </pre>
     </motion.div>
   );
 };
 
 export default OutputDisplay;
-

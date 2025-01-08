@@ -5,24 +5,24 @@ import OutputDisplay from '../components/OutputDisplay';
 import Loader from '../components/Loader';
 import { runWorkflow } from '../utils/api';
 import { AlertCircle } from 'lucide-react';
-
-interface WorkflowResult {
-  output: string;
-}
+import { WorkflowResult, WorkflowFormData } from '../types';  // Updated import
 
 const WorkflowPage: React.FC = () => {
   const [result, setResult] = useState<WorkflowResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (formData: any) => {
+  const handleSubmit = async (formData: WorkflowFormData) => {  // Updated type
     setLoading(true);
     setError(null);
+    
     try {
       const data = await runWorkflow(formData);
       setResult(data);
     } catch (err) {
-      setError('An error occurred while processing your request.');
+      const error = err as Error;
+      setError(error.message || 'An error occurred while processing your request.');
+      console.error('Workflow error:', error);
     } finally {
       setLoading(false);
     }
@@ -38,8 +38,11 @@ const WorkflowPage: React.FC = () => {
       >
         AI Workflow
       </motion.h1>
+
       <InputForm onSubmit={handleSubmit} />
+
       {loading && <Loader />}
+
       {error && (
         <motion.div
           className="bg-red-900/20 border border-red-500 text-red-100 px-4 py-3 rounded-lg relative mt-4"
@@ -53,10 +56,10 @@ const WorkflowPage: React.FC = () => {
           </div>
         </motion.div>
       )}
+
       {result && <OutputDisplay result={result} />}
     </div>
   );
 };
 
 export default WorkflowPage;
-

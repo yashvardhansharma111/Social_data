@@ -1,24 +1,22 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { WorkflowFormData, WorkflowResult } from '../types';
 
-// Create an axios instance with a base URL and custom configuration
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api/langflow', // Correct backend URL
-  timeout: 10000, // 10 seconds timeout
+  baseURL:'http://localhost:3000/api/langflow',//WorkflowFormData
+  timeout: 40000,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
 });
 
-// Function to run the workflow
-export const runWorkflow = async (formData: any) => {
+export const runWorkflow = async (formData: WorkflowFormData): Promise<WorkflowResult> => {
   try {
-    const response = await api.post('/run', formData); // Matches the backend route
+    const response = await api.post<WorkflowResult>('/run', formData);
     return response.data;
   } catch (error) {
-    console.error('Error running workflow:', error);
-    throw error;
+    const axiosError = error as AxiosError;
+    console.error('Error running workflow:', axiosError.response?.data || axiosError.message);
+    throw axiosError.response?.data || { message: 'Error running workflow' };
   }
 };
-
-export default api;
